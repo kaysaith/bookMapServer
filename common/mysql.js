@@ -10,8 +10,6 @@ const connection = mysql.createConnection({
   database: 'bookMapDB',
 })
 
-connection.connect()
-
 exports.createBooks = function ( params = {
   name: String,
   tag: String,
@@ -19,6 +17,7 @@ exports.createBooks = function ( params = {
   columnIndex: Number,
   cover: String
 }, callback) {
+  connection.connect()
   const sql = 'INSERT INTO books(Name,Tag,Row,ColumnIndex,Cover) VALUES(?,?,?,?,?)'
   const parameters = [params.name, params.tag, params.row, params.columnIndex, params.cover]
   //查
