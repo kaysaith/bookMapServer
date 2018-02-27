@@ -9,9 +9,8 @@ const fileStream = require('fs')
 const express = require('express')
 const app = express()
 const multiparty = require('connect-multiparty')
-const multipartMiddleware = multiparty()
 
-const mysql = require('../common/mysql.js')
+const mysql = require('mysql')
 
 const client = qiniu.create({
   accessKey: 'Xcb7vk6Sh9BGN1dXQNIKuPTHJD_2lV-IFBjkkXp6',
@@ -30,9 +29,47 @@ function uploadImageToQiNiu (imagePath, callback) {
   })
 }
 
+app.post('/upload', multiparty(), function (req, res) {
+  const filepath = req.files.file.path
+  uploadImageToQiNiu(filepath, (imageUrl) => {
+    res.end(imageUrl)
+  })
+})
+
+
+/*—————— 插入数据库图书信息 ——————*/
+
+const connection = mysql.createConnection({
+  host: 'bookmapdatabase.cyre2kavvrg6.ap-northeast-1.rds.amazonaws.com',
+  user: 'blinkadmin',
+  password: 'blink140606',
+  port: '3306',
+  database: 'bookMapDB',
+})
+
+function createBooks( params = {
+  name: String,
+  tag: String,
+  row: Number,
+  columnIndex: Number,
+  cover: String
+}, callback) {
+  connection.connect()
+  const sql = 'INSERT INTO books(Name,Tag,Row,ColumnIndex,Cover) VALUES(?,?,?,?,?)'
+  const parameters = [params.name, params.tag, params.row, params.columnIndex, params.cover]
+  // 根据条件插入数据
+  connection.query(sql, parameters, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      if (typeof callback === 'function' ) callback()
+    }
+  })
+  connection.end()
+}
+
 app.get('/createBook', function (request, response) {
   if (request.url !== '/favicon.ico') {
-    mysql.createBooks({
+    createBooks({
       name: request.query.name,
       tag: request.query.tag,
       cover: request.query.cover,
@@ -43,13 +80,6 @@ app.get('/createBook', function (request, response) {
       response.send(200)
     })
   }
-})
-
-app.post('/upload', multipartMiddleware, function (req, res) {
-  const filepath = req.files.file.path
-  uploadImageToQiNiu(filepath, (imageUrl) => {
-    res.end(imageUrl)
-  })
 })
 
 const server = app.listen(8888, function () {
