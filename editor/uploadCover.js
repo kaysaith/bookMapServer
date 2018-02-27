@@ -36,7 +36,6 @@ app.post('/upload', multiparty(), function (req, res) {
   })
 })
 
-
 /*—————— 插入数据库图书信息 ——————*/
 
 const connection = mysql.createConnection({
@@ -47,21 +46,15 @@ const connection = mysql.createConnection({
   database: 'bookMapDB',
 })
 
-function createBooks( params = {
-  name: String,
-  tag: String,
-  row: Number,
-  columnIndex: Number,
-  cover: String
-}, callback) {
+function createBooks (name, tag, cover, row, columnIndex, callback) {
   connection.connect()
   const sql = 'INSERT INTO books(Name,Tag,Row,ColumnIndex,Cover) VALUES(?,?,?,?,?)'
-  const parameters = [params.name, params.tag, params.row, params.columnIndex, params.cover]
+  const parameters = [name, tag, cover, row, columnIndex]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
     if (err) console.log('[SELECT ERROR] - ', err.message)
     if (result) {
-      if (typeof callback === 'function' ) callback()
+      if (typeof callback === 'function') callback()
     }
   })
   connection.end()
@@ -69,25 +62,24 @@ function createBooks( params = {
 
 app.get('/createBook', function (request, response) {
   if (request.url !== '/favicon.ico') {
-    createBooks({
-      name: request.query.name,
-      tag: request.query.tag,
-      cover: request.query.cover,
-      row: request.query.row,
-      columnIndex: request.query.columnIndex
-    }, () => {
-      response.end('isSuccess')
-      response.send(200)
-    })
+    createBooks(
+      request.query.name,
+      request.query.tag,
+      request.query.cover,
+      request.query.row,
+      request.query.columnIndex,
+      () => {
+        response.end()
+        response.send(200)
+      }
+    )
   }
 })
 
 const server = app.listen(8888, function () {
-
   const host = server.address().address
   const port = server.address().port
   console.log('应用实例，访问地址为 http://%s:%s', host, port)
-
 })
 
 
