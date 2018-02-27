@@ -41,6 +41,7 @@ app.get('/createBook', function(request, response) {
       columnIndex: request.query.columnIndex
     }, () => {
       response.end('isSuccess')
+      response.send(200)
     })
   }
 })
