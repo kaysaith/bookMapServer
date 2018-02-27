@@ -11,6 +11,9 @@ const express = require('express')
 const app = express()
 const multiparty = require('connect-multiparty')
 const multipartMiddleware = multiparty()
+const util = require('util')
+
+const mysql = require('../common/mysql.js')
 
 const client = qiniu.create({
   accessKey: 'Xcb7vk6Sh9BGN1dXQNIKuPTHJD_2lV-IFBjkkXp6',
@@ -20,22 +23,40 @@ const client = qiniu.create({
   uploadURL: 'http://up-z2.qiniu.com'
 });
 
-function uploadImageToQiNiu(imagePath) {
+function uploadImageToQiNiu(imagePath, callback) {
   client.upload(fileStream.createReadStream(imagePath), function (err, result) {
     console.log(result);
+    if (typeof callback === 'function') {
+      callback(result.url)
+    }
   })
 }
 
+app.get('/createBook', function(request) {
+  if(request.url !== "/favicon.ico") {
+    console.log('what happened')
+    mysql.createBooks({
+      name: request.query.name,
+      tag: request.query.tag,
+      cover: request.query.cover,
+      row: request.query.row,
+      columnIndex: request.query.columnIndex
+    })
+  }
+})
+
 app.post('/upload', multipartMiddleware, function(req, res){
-        var filepath = req.files.file.path
-        uploadImageToQiNiu(filepath)
-    });
+  const filepath = req.files.file.path
+  uploadImageToQiNiu(filepath, (imageUrl) => {
+    res.end(imageUrl)
+    console.log('hey baby' + imageUrl)
+  })
+});
 
 const server = app.listen(8888, function () {
 
   const host = server.address().address
   const port = server.address().port
-
   console.log("应用实例，访问地址为 http://%s:%s", host, port)
 
 })
