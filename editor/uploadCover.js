@@ -46,10 +46,10 @@ const connection = mysql.createConnection({
   database: 'bookMapDB',
 })
 
-function createBooks (name, tag, cover, row, columnIndex, callback) {
+function createBooks (name, tag, row, columnIndex, cover, callback) {
   connection.connect()
-  const sql = 'INSERT INTO books(Name,Tag,Row,ColumnIndex,Cover) VALUES(?,?,?,?,?)'
-  const parameters = [name, tag, cover, row, columnIndex]
+  const sql = 'INSERT INTO books(Name, Tag, Row, ColumnIndex, Cover) VALUES(?,?,?,?,?)'
+  const parameters = [name, tag, row, columnIndex, cover]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
     if (err) console.log('[SELECT ERROR] - ', err.message)
@@ -65,9 +65,9 @@ app.get('/createBook', function (request, response) {
     createBooks(
       request.query.name,
       request.query.tag,
-      request.query.cover,
       request.query.row,
       request.query.columnIndex,
+      request.query.cover,
       () => {
         response.end()
         response.send(200)
