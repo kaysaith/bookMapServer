@@ -18,13 +18,17 @@ exports.createBooks = function ( params = {
   row: Number,
   columnIndex: Number,
   cover: String
-}) {
+}, callback) {
   const sql = 'INSERT INTO books(Name,Tag,Row,ColumnIndex,Cover) VALUES(?,?,?,?,?)'
   const parameters = [params.name, params.tag, params.row, params.columnIndex, params.cover]
   //查
-  connection.query(sql, parameters, function (err) {
+  connection.query(sql, parameters, function (err, result) {
     if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      if (typeof callback === 'function' ) callback()
+    }
   })
+
   connection.end()
 }
 

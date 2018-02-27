@@ -11,7 +11,6 @@ const express = require('express')
 const app = express()
 const multiparty = require('connect-multiparty')
 const multipartMiddleware = multiparty()
-const util = require('util')
 
 const mysql = require('../common/mysql.js')
 
@@ -32,15 +31,16 @@ function uploadImageToQiNiu(imagePath, callback) {
   })
 }
 
-app.get('/createBook', function(request) {
+app.get('/createBook', function(request, response) {
   if(request.url !== "/favicon.ico") {
-    console.log('what happened')
     mysql.createBooks({
       name: request.query.name,
       tag: request.query.tag,
       cover: request.query.cover,
       row: request.query.row,
       columnIndex: request.query.columnIndex
+    }, () => {
+      response.end('isSuccess')
     })
   }
 })
@@ -49,7 +49,6 @@ app.post('/upload', multipartMiddleware, function(req, res){
   const filepath = req.files.file.path
   uploadImageToQiNiu(filepath, (imageUrl) => {
     res.end(imageUrl)
-    console.log('hey baby' + imageUrl)
   })
 });
 
