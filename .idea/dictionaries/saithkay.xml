@@ -2,6 +2,7 @@
   <dictionary name="saithkay">
     <words>
       <w>amazonaws</w>
+      <w>appid</w>
       <w>banuu</w>
       <w>bjkk</w>
       <w>blinkadmin</w>
@@ -13,7 +14,9 @@
       <w>mfiv</w>
       <w>pthjd</w>
       <w>qiniu</w>
+      <w>uuidv</w>
       <w>xqni</w>
+      <w>yyyy</w>
     </words>
   </dictionary>
 </component>
