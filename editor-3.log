@@ -1,19 +1,518 @@
+[ RowDataPacket {
+    ID: 24,
+    Name: '棉的全球史',
+    EnglishName: null,
+    Tag: ' 乔吉奥·列略 ',
+    Row: 2,
+    ColumnIndex: 5,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/FlODjjAthDXfYMtCjKa231ALN8Ce',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 23,
+    Name: '纸上动物园',
+    EnglishName: null,
+    Tag: '夏洛特·斯莱 ',
+    Row: 3,
+    ColumnIndex: 3,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/FmFLDYNV8qNbNtwr1U2WZSW8XQ0l',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 22,
+    Name: '狗女婿上门',
+    EnglishName: null,
+    Tag: '多和田叶子 ',
+    Row: 3,
+    ColumnIndex: 2,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/FufmUx0g51YRDS8tVq8I0XcHdVb6',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 21,
+    Name: '北野武的小酒馆',
+    EnglishName: null,
+    Tag: '北野武 ',
+    Row: 4,
+    ColumnIndex: 3,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/Fjg936DQ-AJc6VcFskvXDBjZ33X-',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 20,
+    Name: '神枪手迪克',
+    EnglishName: null,
+    Tag: '库尔特·冯内古特 ',
+    Row: 1,
+    ColumnIndex: 2,
+    Cover: 'https://img3.doubanio.com/lpic/s29662006.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 19,
+    Name: '小王子的领悟',
+    EnglishName: null,
+    Tag: '周保松',
+    Row: 2,
+    ColumnIndex: 3,
+    Cover: 'https://img3.doubanio.com/lpic/s29651751.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 18,
+    Name: '给所有昨日的诗',
+    EnglishName: null,
+    Tag: '维斯瓦娃·辛波丝卡 ',
+    Row: 1,
+    ColumnIndex: 3,
+    Cover: 'https://img1.doubanio.com/lpic/s29625588.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 17,
+    Name: '月光下的旅人',
+    EnglishName: null,
+    Tag: '瑟尔伯·昂托',
+    Row: 1,
+    ColumnIndex: 2,
+    Cover: 'https://img3.doubanio.com/lpic/s29604940.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 16,
+    Name: '月亮和六便士',
+    EnglishName: 'The Moon and Sixpence',
+    Tag: 'Novel',
+    Row: 2,
+    ColumnIndex: 1,
+    Cover: 'https://img1.doubanio.com/lpic/s2659208.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 3,
+    Name: '质数的孤独',
+    EnglishName: 'La solitudine dei numeri primi',
+    Tag: 'Science',
+    Row: 2,
+    ColumnIndex: 5,
+    Cover: 'https://img3.doubanio.com/lpic/s4642526.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null } ]
 应用实例，访问地址为 http://:::8888
-+++4
-+++5
-+++8
-+++1
-+++2
-+++3oXGvq4tPTJA352aVRogLX2X34P_Yc61ee45a-0afe-41b8-a5bf-5c37cc93316f
-+++9oXGvq4tPTJA352aVRogLX2X34P_Yc61ee45a-0afe-41b8-a5bf-5c37cc93316f
 应用实例，访问地址为 http://:::8888
 应用实例，访问地址为 http://:::8888
-[SELECT ERROR] -  read ECONNRESET
-[SELECT ERROR] -  Cannot enqueue Query after fatal error.
+[ RowDataPacket {
+    ID: 24,
+    Name: '棉的全球史',
+    EnglishName: null,
+    Tag: ' 乔吉奥·列略 ',
+    Row: 2,
+    ColumnIndex: 5,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/FlODjjAthDXfYMtCjKa231ALN8Ce',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 23,
+    Name: '纸上动物园',
+    EnglishName: null,
+    Tag: '夏洛特·斯莱 ',
+    Row: 3,
+    ColumnIndex: 3,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/FmFLDYNV8qNbNtwr1U2WZSW8XQ0l',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 22,
+    Name: '狗女婿上门',
+    EnglishName: null,
+    Tag: '多和田叶子 ',
+    Row: 3,
+    ColumnIndex: 2,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/FufmUx0g51YRDS8tVq8I0XcHdVb6',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 21,
+    Name: '北野武的小酒馆',
+    EnglishName: null,
+    Tag: '北野武 ',
+    Row: 4,
+    ColumnIndex: 3,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/Fjg936DQ-AJc6VcFskvXDBjZ33X-',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 20,
+    Name: '神枪手迪克',
+    EnglishName: null,
+    Tag: '库尔特·冯内古特 ',
+    Row: 1,
+    ColumnIndex: 2,
+    Cover: 'https://img3.doubanio.com/lpic/s29662006.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 19,
+    Name: '小王子的领悟',
+    EnglishName: null,
+    Tag: '周保松',
+    Row: 2,
+    ColumnIndex: 3,
+    Cover: 'https://img3.doubanio.com/lpic/s29651751.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 18,
+    Name: '给所有昨日的诗',
+    EnglishName: null,
+    Tag: '维斯瓦娃·辛波丝卡 ',
+    Row: 1,
+    ColumnIndex: 3,
+    Cover: 'https://img1.doubanio.com/lpic/s29625588.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 17,
+    Name: '月光下的旅人',
+    EnglishName: null,
+    Tag: '瑟尔伯·昂托',
+    Row: 1,
+    ColumnIndex: 2,
+    Cover: 'https://img3.doubanio.com/lpic/s29604940.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 16,
+    Name: '月亮和六便士',
+    EnglishName: 'The Moon and Sixpence',
+    Tag: 'Novel',
+    Row: 2,
+    ColumnIndex: 1,
+    Cover: 'https://img1.doubanio.com/lpic/s2659208.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 3,
+    Name: '质数的孤独',
+    EnglishName: 'La solitudine dei numeri primi',
+    Tag: 'Science',
+    Row: 2,
+    ColumnIndex: 5,
+    Cover: 'https://img3.doubanio.com/lpic/s4642526.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null } ]
 应用实例，访问地址为 http://:::8888
-[SELECT ERROR] -  read ECONNRESET
-[SELECT ERROR] -  Cannot enqueue Query after fatal error.
-[SELECT ERROR] -  Cannot enqueue Query after fatal error.
 应用实例，访问地址为 http://:::8888
-[SELECT ERROR] -  read ECONNRESET
+[ RowDataPacket {
+    ID: 24,
+    Name: '棉的全球史',
+    EnglishName: null,
+    Tag: ' 乔吉奥·列略 ',
+    Row: 2,
+    ColumnIndex: 5,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/FlODjjAthDXfYMtCjKa231ALN8Ce',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 23,
+    Name: '纸上动物园',
+    EnglishName: null,
+    Tag: '夏洛特·斯莱 ',
+    Row: 3,
+    ColumnIndex: 3,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/FmFLDYNV8qNbNtwr1U2WZSW8XQ0l',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 22,
+    Name: '狗女婿上门',
+    EnglishName: null,
+    Tag: '多和田叶子 ',
+    Row: 3,
+    ColumnIndex: 2,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/FufmUx0g51YRDS8tVq8I0XcHdVb6',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 21,
+    Name: '北野武的小酒馆',
+    EnglishName: null,
+    Tag: '北野武 ',
+    Row: 4,
+    ColumnIndex: 3,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/Fjg936DQ-AJc6VcFskvXDBjZ33X-',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 20,
+    Name: '神枪手迪克',
+    EnglishName: null,
+    Tag: '库尔特·冯内古特 ',
+    Row: 1,
+    ColumnIndex: 2,
+    Cover: 'https://img3.doubanio.com/lpic/s29662006.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 19,
+    Name: '小王子的领悟',
+    EnglishName: null,
+    Tag: '周保松',
+    Row: 2,
+    ColumnIndex: 3,
+    Cover: 'https://img3.doubanio.com/lpic/s29651751.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 18,
+    Name: '给所有昨日的诗',
+    EnglishName: null,
+    Tag: '维斯瓦娃·辛波丝卡 ',
+    Row: 1,
+    ColumnIndex: 3,
+    Cover: 'https://img1.doubanio.com/lpic/s29625588.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 17,
+    Name: '月光下的旅人',
+    EnglishName: null,
+    Tag: '瑟尔伯·昂托',
+    Row: 1,
+    ColumnIndex: 2,
+    Cover: 'https://img3.doubanio.com/lpic/s29604940.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 16,
+    Name: '月亮和六便士',
+    EnglishName: 'The Moon and Sixpence',
+    Tag: 'Novel',
+    Row: 2,
+    ColumnIndex: 1,
+    Cover: 'https://img1.doubanio.com/lpic/s2659208.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 3,
+    Name: '质数的孤独',
+    EnglishName: 'La solitudine dei numeri primi',
+    Tag: 'Science',
+    Row: 2,
+    ColumnIndex: 5,
+    Cover: 'https://img3.doubanio.com/lpic/s4642526.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null } ]
+11111+++++++
+oXGvq4tPTJA352aVRogLX2X34P_Y+++++++
+应用实例，访问地址为 http://:::8888
+11111+++++++
+oXGvq4tPTJA352aVRogLX2X34P_Y+++++++
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+[ RowDataPacket {
+    ID: 24,
+    Name: '棉的全球史',
+    EnglishName: null,
+    Tag: ' 乔吉奥·列略 ',
+    Row: 2,
+    ColumnIndex: 5,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/FlODjjAthDXfYMtCjKa231ALN8Ce',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 23,
+    Name: '纸上动物园',
+    EnglishName: null,
+    Tag: '夏洛特·斯莱 ',
+    Row: 3,
+    ColumnIndex: 3,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/FmFLDYNV8qNbNtwr1U2WZSW8XQ0l',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 22,
+    Name: '狗女婿上门',
+    EnglishName: null,
+    Tag: '多和田叶子 ',
+    Row: 3,
+    ColumnIndex: 2,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/FufmUx0g51YRDS8tVq8I0XcHdVb6',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 21,
+    Name: '北野武的小酒馆',
+    EnglishName: null,
+    Tag: '北野武 ',
+    Row: 4,
+    ColumnIndex: 3,
+    Cover: 'http://p4qye2peb.bkt.clouddn.com/Fjg936DQ-AJc6VcFskvXDBjZ33X-',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 20,
+    Name: '神枪手迪克',
+    EnglishName: null,
+    Tag: '库尔特·冯内古特 ',
+    Row: 1,
+    ColumnIndex: 2,
+    Cover: 'https://img3.doubanio.com/lpic/s29662006.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 19,
+    Name: '小王子的领悟',
+    EnglishName: null,
+    Tag: '周保松',
+    Row: 2,
+    ColumnIndex: 3,
+    Cover: 'https://img3.doubanio.com/lpic/s29651751.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 18,
+    Name: '给所有昨日的诗',
+    EnglishName: null,
+    Tag: '维斯瓦娃·辛波丝卡 ',
+    Row: 1,
+    ColumnIndex: 3,
+    Cover: 'https://img1.doubanio.com/lpic/s29625588.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 17,
+    Name: '月光下的旅人',
+    EnglishName: null,
+    Tag: '瑟尔伯·昂托',
+    Row: 1,
+    ColumnIndex: 2,
+    Cover: 'https://img3.doubanio.com/lpic/s29604940.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 16,
+    Name: '月亮和六便士',
+    EnglishName: 'The Moon and Sixpence',
+    Tag: 'Novel',
+    Row: 2,
+    ColumnIndex: 1,
+    Cover: 'https://img1.doubanio.com/lpic/s2659208.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null },
+  RowDataPacket {
+    ID: 3,
+    Name: '质数的孤独',
+    EnglishName: 'La solitudine dei numeri primi',
+    Tag: 'Science',
+    Row: 2,
+    ColumnIndex: 5,
+    Cover: 'https://img3.doubanio.com/lpic/s4642526.jpg',
+    ShelfID: 'oXGvq4tPTJA352aVRogLX2X34P_Y',
+    CreateTime: null,
+    UpdateTime: null } ]
+hi1111++++
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+[SELECT ERROR] -  ER_SP_UNDECLARED_VAR: Undeclared variable: NaN
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+[SELECT ERROR] -  ER_SP_UNDECLARED_VAR: Undeclared variable: NaN
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
 应用实例，访问地址为 http://:::8888

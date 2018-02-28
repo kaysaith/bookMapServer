@@ -12,6 +12,7 @@ const multiparty = require('connect-multiparty')
 
 const mysql = require('mysql')
 const nodeRequest = require('request')
+const utils = require('../common/utils')
 
 const client = qiniu.create({
   accessKey: 'Xcb7vk6Sh9BGN1dXQNIKuPTHJD_2lV-IFBjkkXp6',
@@ -52,32 +53,32 @@ function createBooks (params = {
   row: Number,
   columnIndex: Number,
   cover: String,
-  callback: Function },
+  shelfID: String }, callback
   ) {
-  connection.connect()
-  const sql = 'INSERT INTO books(Name, Tag, Row, ColumnIndex, Cover) VALUES(?,?,?,?,?)'
-  const parameters = [params.name, params.tag, params.row, params.columnIndex, params.cover]
+  const sql = 'INSERT INTO books(Name, Tag, Row, ColumnIndex, Cover, ShelfID) VALUES(?,?,?,?,?,?)'
+  const parameters = [params.name, params.tag, params.row, params.columnIndex, params.cover, params.shelfID]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
     if (err) console.log('[SELECT ERROR] - ', err.message)
-    if (result) { if (typeof params.callback === 'function') params.callback() }
+    if (result) { if (typeof callback === 'function') callback() }
   })
-  connection.end()
 }
 
 app.get('/createBook', function (request, response) {
   if (request.url !== '/favicon.ico') {
-    createBooks(
-      request.query.name,
-      request.query.tag,
-      request.query.row,
-      request.query.columnIndex,
-      request.query.cover,
-      () => {
+    getShelfID(request.query.openid, (shelfID) => {
+      createBooks({
+        name: request.query.name,
+        tag: request.query.tag,
+        row: request.query.row,
+        columnIndex: request.query.columnIndex,
+        cover: request.query.cover,
+        shelfID: shelfID
+      }, () => {
         response.end()
         response.send(200)
-      }
-    )
+      })
+    })
   }
 })
 
@@ -114,15 +115,37 @@ app.get('/getTokenAndUserInfo', function (request, res) {
           userInfo[item] = JSON.parse(body)[item]
         }
 
+        const uniqueToken = utils.initUserToken(userInfo.openid)
+
         registerOrLogin(userInfo.openid, (result) => {
           if (result.length === 0) {
-            const uniqueToken = initUserToken(userInfo.openid)
-            // 如果结果的长度为 0 意味着此 `openid` 没有注册过,启动注册
             const time = new Date()
-            registerUser(userInfo.openid, request.query.nickName, request.query.avatarUrl, uniqueToken, time)
+            // 如果结果的长度为 0 意味着此 `openid` 没有注册过,启动注册
+            registerUser({
+              openid: userInfo.openid,
+              nick: request.query.nickName,
+              avatar: request.query.avatarUrl,
+              token: uniqueToken,
+              time: time,
+              callback: () => {
+                // 注册成功后直接帮助创建唯一的个人书柜
+                createShelf({
+                  id: userInfo.openid,
+                  time: time,
+                  userID: userInfo.openid,
+                  isOwner: true
+                })
+              }
+            })
           }
         })
-        res.end(body)
+
+        const account = {
+          openid: userInfo.openid,
+          token: uniqueToken
+        }
+
+        res.end(JSON.stringify(account))
       }
     })
 })
@@ -139,9 +162,33 @@ function registerOrLogin (openid, callback) {
   })
 }
 
-function registerUser (openid, nick, avatar, token, time, callback) {
+function registerUser (params = {
+  openid: String,
+  nick: String,
+  avatar: String,
+  token: String,
+  time: String,
+  callback: Function }
+  ) {
   const sql = 'INSERT INTO user(WxOpenID, Nick, Avatar, Token, RegisterTime) VALUES(?,?,?,?,?)'
-  const parameters = [openid, nick, avatar, token, time]
+  const parameters = [params.openid, params.nick, params.avatar, params.token, params.time]
+  // 根据条件插入数据
+  connection.query(sql, parameters, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      if (typeof params.callback === 'function') params.callback()
+    }
+  })
+}
+
+function createShelf (param = {
+  id: String,
+  time: String,
+  userID: String,
+  isOwner: Boolean }
+  ) {
+  const sql = 'INSERT INTO shelf(ShelfID, CreateTime, User, IsOwner) VALUES(?,?,?,?)'
+  const parameters = [param.id, param.time, param.userID, param.isOwner]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
     if (err) console.log('[SELECT ERROR] - ', err.message)
@@ -153,11 +200,45 @@ function updateUserInfo () {
   //TODO 这里要写一个函数在用户登录的时候判断是否需要更新他的新的微信的用户名或头像
 }
 
-// 通过用户的唯一 `ID` 生成服务器私密请求校验的 `token`
-function initUserToken (openid) {
-  const uuidv4 = require('uuid/v4')
-  return openid + uuidv4()
+/*—————— Get Books ——————*/
+
+app.get('/getBooks', function (request, response) {
+  getBooksFromDatabase(request.query.openid, request.query.startIndex, (books) => {
+    response.end(JSON.stringify(books))
+    response.send(200)
+  })
+})
+
+function getBooksFromDatabase(openid, startIndex, hold) {
+  getShelfID(openid, (shelfID) => {
+    const sql = 'select * from books where ShelfID = ? order by ID desc limit ?,10'
+    const parameters = [shelfID, parseInt(startIndex)]
+    // 根据条件插入数据
+    connection.query(sql, parameters, function (err, result) {
+      if (err) console.log('[SELECT ERROR] - ', err.message)
+      if (result) {
+        if (typeof hold === 'function') hold(result)
+      }
+    })
+  })
 }
+
+function getShelfID (openid, hold) {
+  const sql = 'select ShelfID  from shelf where user = ? and IsOwner = 1'
+  const parameters = [openid]
+  // 根据条件插入数据
+  connection.query(sql, parameters, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      let shelfID
+      for (const item in result[0]) {
+        shelfID = result[0][item]
+      }
+      if (typeof hold === 'function') hold(shelfID)
+    }
+  })
+}
+
 
 // 指定接口监听
 
