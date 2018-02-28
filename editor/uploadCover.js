@@ -102,7 +102,7 @@ app.get('/getTokenAndUserInfo', function (request, res) {
          * 不知道为什么微信返回的是一个看着像对象的纯 `String`, 所以这里需要
          * 把结果转换成可调用的类型. by KaySaith
          */
-        let userInfo = {}
+        const userInfo = {}
         for (const item in JSON.parse(body)) {
           userInfo[item] = JSON.parse(body)[item]
         }
