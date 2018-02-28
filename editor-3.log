@@ -16,3 +16,4 @@
 [SELECT ERROR] -  Cannot enqueue Query after fatal error.
 应用实例，访问地址为 http://:::8888
 [SELECT ERROR] -  read ECONNRESET
+应用实例，访问地址为 http://:::8888
