@@ -76,7 +76,6 @@ app.get('/createBook', function (request, response) {
         shelfID: shelfID
       }, () => {
         response.end()
-        response.send(200)
       })
     })
   }
@@ -205,7 +204,6 @@ function updateUserInfo () {
 app.get('/getBooks', function (request, response) {
   getBooksFromDatabase(request.query.openid, request.query.startIndex, (books) => {
     response.end(JSON.stringify(books))
-    response.send(200)
   })
 })
 
