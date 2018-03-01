@@ -241,7 +241,7 @@ app.get('/getMemberList', function (request, response) {
 })
 
 function getMemberUserIDList (shelfID, hold) {
-  const sql = 'select User from shelf where ShelfID = ?'
+  const sql = 'select OpenID from shelf where ShelfID = ?'
   const parameters = [shelfID]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
