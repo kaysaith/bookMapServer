@@ -47,17 +47,58 @@ const connection = mysql.createConnection({
   database: 'bookMapDB',
 })
 
-function createBooks (params = {
+app.get('/createBook', function (request, response) {
+  const time = new Date()
+  setBooks({
+    isModifyEvent: false,
+    name: request.query.name,
+    tag: request.query.tag,
+    row: request.query.row,
+    columnIndex: request.query.columnIndex,
+    cover: request.query.cover,
+    shelfID: request.query.shelfID,
+    time: time
+  }, () => {
+    response.end()
+  })
+})
+
+app.get('/modifyBookInfo', function (request, response) {
+  const time = new Date()
+  setBooks({
+    isModifyEvent: true,
+    name: request.query.name,
+    tag: request.query.tag,
+    row: request.query.row,
+    columnIndex: request.query.columnIndex,
+    cover: request.query.cover,
+    shelfID: request.query.shelfID,
+    time: time,
+    bookID: request.query.bookID
+  }, () => {
+    response.end()
+  })
+})
+
+function setBooks (params = {
+  isModifyEvent: Boolean,
   name: String,
   tag: String,
   row: Number,
   columnIndex: Number,
   cover: String,
   shelfID: String,
-  time: String }, callback
-  ) {
-  const sql = 'INSERT INTO book(Name, Tag, Row, ColumnIndex, Cover, ShelfID, CreateTime) VALUES(?,?,?,?,?,?,?)'
-  const parameters = [params.name, params.tag, params.row, params.columnIndex, params.cover, params.shelfID, params.time]
+  time: String,
+  bookID: Number }, callback
+) {
+  let sql = params.isModifyEvent
+    ? 'UPDATE book SET Name = ?, Tag = ?, Row = ?, ColumnIndex = ?, Cover = ?, ShelfID = ?, UpdateTime = ? WHERE ID = ?'
+    : 'INSERT INTO book(Name, Tag, Row, ColumnIndex, Cover, ShelfID, CreateTime) VALUES(?,?,?,?,?,?,?)'
+
+  let parameters =  params.isModifyEvent
+    ? [params.name, params.tag, params.row, params.columnIndex, params.cover, params.shelfID, params.time, params.bookID]
+    : [params.name, params.tag, params.row, params.columnIndex, params.cover, params.shelfID, params.time]
+
   // 根据条件插入数据到 `Book` 表格
   connection.query(sql, parameters, function (err, result) {
     if (err) console.log('[SELECT ERROR] - ', err.message)
@@ -65,24 +106,6 @@ function createBooks (params = {
   })
 }
 
-app.get('/createBook', function (request, response) {
-  if (request.url !== '/favicon.ico') {
-    const time = new Date()
-    getShelfID(request.query.openid, (shelfID) => {
-      createBooks({
-        name: request.query.name,
-        tag: request.query.tag,
-        row: request.query.row,
-        columnIndex: request.query.columnIndex,
-        cover: request.query.cover,
-        shelfID: shelfID,
-        time: time
-      }, () => {
-        response.end()
-      })
-    })
-  }
-})
 
 /*—————— 获取 Token ——————*/
 
@@ -197,22 +220,41 @@ function updateUserInfo () {
 /*—————— Get Books ——————*/
 
 app.get('/getBooks', function (request, response) {
-  getBooksFromDatabase(request.query.openid, request.query.startIndex, (books) => {
+  getBooksFromDatabase(request.query.shelfID, request.query.startIndex, (books) => {
     response.end(JSON.stringify(books))
   })
 })
 
-function getBooksFromDatabase(openid, startIndex, hold) {
-  getShelfID(openid, (shelfID) => {
-    const sql = 'select * from book where ShelfID = ? order by ID desc limit ?,10'
-    const parameters = [shelfID, parseInt(startIndex)]
-    // 根据条件插入数据
-    connection.query(sql, parameters, function (err, result) {
-      if (err) console.log('[SELECT ERROR] - ', err.message)
-      if (result) {
-        if (typeof hold === 'function') hold(result)
-      }
-    })
+function getBooksFromDatabase(shelfID, startIndex, hold) {
+  const sql = 'select * from book where ShelfID = ? order by ID desc limit ?,10'
+  const parameters = [shelfID, parseInt(startIndex)]
+  // 根据条件插入数据
+  connection.query(sql, parameters, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      if (typeof hold === 'function') hold(result)
+    }
+  })
+}
+
+/*—————— Update Single Book ——————*/
+
+app.get('/updateTargetBookInfo', function (request, response) {
+  getBookInfoFromDatabase(request.query.bookID, (book) => {
+
+    response.end(JSON.stringify(book))
+  })
+})
+
+function getBookInfoFromDatabase(bookID, hold) {
+  const sql = 'select * from book where ID = ?'
+  const parameters = [bookID]
+  // 根据条件插入数据
+  connection.query(sql, parameters, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      if (typeof hold === 'function') hold(result[0])
+    }
   })
 }
 
