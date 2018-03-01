@@ -1,3 +1,10 @@
-[SELECT ERROR] -  read ECONNRESET
-[SELECT ERROR] -  Cannot enqueue Query after fatal error.
+[SELECT ERROR] -  ER_BAD_FIELD_ERROR: Unknown column 'user' in 'where clause'
+[SELECT ERROR] -  ER_BAD_FIELD_ERROR: Unknown column 'user' in 'where clause'
+应用实例，访问地址为 http://:::8888
+应用实例，访问地址为 http://:::8888
+[]_____
+应用实例，访问地址为 http://:::8888
+"oXGvq4tPTJA352aVRogLX2X34P_Y"__****++++__+_+_+____
+[{"OpenID":"oXGvq4tPTJA352aVRogLX2X34P_Y"},{"OpenID":"oXGvq4kid5z2hS3_xZU1lzjK_k2Q "}]__****___
+[]_____
 应用实例，访问地址为 http://:::8888
