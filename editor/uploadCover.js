@@ -57,7 +57,7 @@ function createBooks (params = {
   ) {
   const sql = 'INSERT INTO book(Name, Tag, Row, ColumnIndex, Cover, ShelfID) VALUES(?,?,?,?,?,?)'
   const parameters = [params.name, params.tag, params.row, params.columnIndex, params.cover, params.shelfID]
-  // 根据条件插入数据
+  // 根据条件插入数据到 `Book` 表格
   connection.query(sql, parameters, function (err, result) {
     if (err) console.log('[SELECT ERROR] - ', err.message)
     if (result) { if (typeof callback === 'function') callback() }
