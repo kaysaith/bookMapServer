@@ -269,6 +269,17 @@ function getMemberInfoList (userIDList, hold) {
   })
 }
 
+app.get('/deleteMember', function (request, response) {
+  // 从家庭列表删除指定的 `OpenID` 以及 判断不是创建者
+  const sql = 'delete from shelf where OpenID = ? and IsOwner = 0'
+  const parameters = [request.query.openid]
+  // 根据条件插入数据
+  connection.query(sql, parameters, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) response.end()
+  })
+})
+
 
 /* 数据库策略模式组件 */
 
@@ -309,7 +320,7 @@ function createShelf (param = {
   time: String,
   userID: String,
   isOwner: Boolean }, callback
-) {
+  ) {
   const sql = 'INSERT INTO shelf(ShelfID, CreateTime, OpenID, IsOwner) VALUES(?,?,?,?)'
   const parameters = [param.id, param.time, param.userID, param.isOwner]
   // 根据条件插入数据
