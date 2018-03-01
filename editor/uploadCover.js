@@ -53,10 +53,11 @@ function createBooks (params = {
   row: Number,
   columnIndex: Number,
   cover: String,
-  shelfID: String }, callback
+  shelfID: String,
+  time: String }, callback
   ) {
-  const sql = 'INSERT INTO book(Name, Tag, Row, ColumnIndex, Cover, ShelfID) VALUES(?,?,?,?,?,?)'
-  const parameters = [params.name, params.tag, params.row, params.columnIndex, params.cover, params.shelfID]
+  const sql = 'INSERT INTO book(Name, Tag, Row, ColumnIndex, Cover, ShelfID, CreateTime) VALUES(?,?,?,?,?,?,?)'
+  const parameters = [params.name, params.tag, params.row, params.columnIndex, params.cover, params.shelfID, params.time]
   // 根据条件插入数据到 `Book` 表格
   connection.query(sql, parameters, function (err, result) {
     if (err) console.log('[SELECT ERROR] - ', err.message)
@@ -66,6 +67,7 @@ function createBooks (params = {
 
 app.get('/createBook', function (request, response) {
   if (request.url !== '/favicon.ico') {
+    const time = new Date()
     getShelfID(request.query.openid, (shelfID) => {
       createBooks({
         name: request.query.name,
@@ -73,7 +75,8 @@ app.get('/createBook', function (request, response) {
         row: request.query.row,
         columnIndex: request.query.columnIndex,
         cover: request.query.cover,
-        shelfID: shelfID
+        shelfID: shelfID,
+        time: time
       }, () => {
         response.end()
       })
@@ -157,7 +160,7 @@ app.get('/getTokenAndUserInfo', function (request, res) {
 })
 
 function registerOrLogin (openid, callback) {
-  const sql = 'select Nick from user where WxOpenID = ?'
+  const sql = 'select Nick from user where OpenID = ?'
   const parameters = [openid]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
@@ -176,7 +179,7 @@ function registerUser (params = {
   time: String,
   callback: Function }
   ) {
-  const sql = 'INSERT INTO user(WxOpenID, Nick, Avatar, Token, RegisterTime) VALUES(?,?,?,?,?)'
+  const sql = 'INSERT INTO user(OpenID, Nick, Avatar, Token, RegisterTime) VALUES(?,?,?,?,?)'
   const parameters = [params.openid, params.nick, params.avatar, params.token, params.time]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
@@ -253,8 +256,8 @@ function getMemberInfoList (userIDList, hold) {
   let allUserID = ''
   for (let index = 0; index < userIDList.length; index++) {
     allUserID += index < userIDList.length - 1
-      ? 'WxOpenID = "' + userIDList[index].User + '" or '
-      : 'WxOpenID = "' + userIDList[index].User + '"'
+      ? 'OpenID = "' + userIDList[index].User + '" or '
+      : 'OpenID = "' + userIDList[index].User + '"'
   }
   const sql = 'select * from user where ' + allUserID
   // 根据条件插入数据
@@ -307,7 +310,7 @@ function createShelf (param = {
   userID: String,
   isOwner: Boolean }, callback
 ) {
-  const sql = 'INSERT INTO shelf(ShelfID, CreateTime, User, IsOwner) VALUES(?,?,?,?)'
+  const sql = 'INSERT INTO shelf(ShelfID, CreateTime, OpenID, IsOwner) VALUES(?,?,?,?)'
   const parameters = [param.id, param.time, param.userID, param.isOwner]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
