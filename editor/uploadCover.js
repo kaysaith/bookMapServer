@@ -55,7 +55,7 @@ function createBooks (params = {
   cover: String,
   shelfID: String }, callback
   ) {
-  const sql = 'INSERT INTO books(Name, Tag, Row, ColumnIndex, Cover, ShelfID) VALUES(?,?,?,?,?,?)'
+  const sql = 'INSERT INTO book(Name, Tag, Row, ColumnIndex, Cover, ShelfID) VALUES(?,?,?,?,?,?)'
   const parameters = [params.name, params.tag, params.row, params.columnIndex, params.cover, params.shelfID]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
@@ -201,7 +201,7 @@ app.get('/getBooks', function (request, response) {
 
 function getBooksFromDatabase(openid, startIndex, hold) {
   getShelfID(openid, (shelfID) => {
-    const sql = 'select * from books where ShelfID = ? order by ID desc limit ?,10'
+    const sql = 'select * from book where ShelfID = ? order by ID desc limit ?,10'
     const parameters = [shelfID, parseInt(startIndex)]
     // 根据条件插入数据
     connection.query(sql, parameters, function (err, result) {
