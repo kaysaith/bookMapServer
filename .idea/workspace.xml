@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e1a1ae0-c437-41f5-ba1a-7ead05208cd3" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/editor-3.log" afterPath="$PROJECT_DIR$/editor-3.log" />
       <change beforePath="$PROJECT_DIR$/editor/uploadCover.js" afterPath="$PROJECT_DIR$/editor/uploadCover.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -20,8 +19,8 @@
       <file leaf-file-name="uploadCover.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/editor/uploadCover.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1638">
-              <caret line="148" column="54" lean-forward="true" selection-start-line="148" selection-start-column="54" selection-end-line="148" selection-end-column="54" />
+            <state relative-caret-position="569">
+              <caret line="59" column="24" lean-forward="false" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -64,6 +63,9 @@
       <find>getBooks</find>
       <find>200</find>
       <find>true</find>
+      <find>from book</find>
+      <find>book</find>
+      <find>books</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -202,12 +204,12 @@
       <workItem from="1519444799643" duration="419000" />
       <workItem from="1519629230354" duration="150000" />
       <workItem from="1519704101611" duration="2821000" />
-      <workItem from="1519716512378" duration="55002000" />
+      <workItem from="1519716512378" duration="55376000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69715000" />
+    <option name="totallyTimeSpent" value="70089000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -323,8 +325,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/editor/uploadCover.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1638">
-          <caret line="148" column="54" lean-forward="true" selection-start-line="148" selection-start-column="54" selection-end-line="148" selection-end-column="54" />
+        <state relative-caret-position="569">
+          <caret line="59" column="24" lean-forward="false" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
