@@ -116,10 +116,15 @@ app.get('/getTokenAndUserInfo', function (request, res) {
 
         const uniqueToken = utils.initUserToken(userInfo.openid)
 
+        const account = {
+          openid: userInfo.openid,
+          token: uniqueToken,
+        }
+
         registerOrLogin(userInfo.openid, (result) => {
+          // 如果结果的长度为 0 意味着此 `openid` 没有注册过,启动注册
           if (result.length === 0) {
             const time = new Date()
-            // 如果结果的长度为 0 意味着此 `openid` 没有注册过,启动注册
             registerUser({
               openid: userInfo.openid,
               nick: request.query.nickName,
@@ -133,18 +138,20 @@ app.get('/getTokenAndUserInfo', function (request, res) {
                   time: time,
                   userID: userInfo.openid,
                   isOwner: true
+                }, () => {
+                  account.shelfID = shelfID
+                  res.end(JSON.stringify(account))
                 })
               }
             })
+          } else {
+            // 如果是登录用户查询这个用户的 `ShelfID` 并返回给客户端
+            getShelfID(userInfo.openid, (shelfID) => {
+              account.shelfID = shelfID
+              res.end(JSON.stringify(account))
+            })
           }
         })
-
-        const account = {
-          openid: userInfo.openid,
-          token: uniqueToken
-        }
-
-        res.end(JSON.stringify(account))
       }
     })
 })
@@ -180,21 +187,6 @@ function registerUser (params = {
   })
 }
 
-function createShelf (param = {
-  id: String,
-  time: String,
-  userID: String,
-  isOwner: Boolean }
-  ) {
-  const sql = 'INSERT INTO shelf(ShelfID, CreateTime, User, IsOwner) VALUES(?,?,?,?)'
-  const parameters = [param.id, param.time, param.userID, param.isOwner]
-  // 根据条件插入数据
-  connection.query(sql, parameters, function (err, result) {
-    if (err) console.log('[SELECT ERROR] - ', err.message)
-    if (result) { if (typeof callback === 'function') callback() }
-  })
-}
-
 function updateUserInfo () {
   //TODO 这里要写一个函数在用户登录的时候判断是否需要更新他的新的微信的用户名或头像
 }
@@ -221,8 +213,64 @@ function getBooksFromDatabase(openid, startIndex, hold) {
   })
 }
 
+/*—————— 添加家庭成员 ——————*/
+
+app.get('/addMember', function (request, response) {
+  const time = new Date()
+  createShelf({
+    id: request.query.shelfID,
+    time: time,
+    userID: request.query.memberID,
+    isOwner: false
+  }, () => {
+    response.end('success')
+  })
+})
+
+/*—————— 家庭成员列表 ——————*/
+
+app.get('/getMemberList', function (request, response) {
+  getMemberUserIDList(request.query.shelfID,
+    (userIDList) => getMemberInfoList(userIDList,
+      (userInfoList) => response.end(JSON.stringify(userInfoList))
+    )
+  )
+})
+
+function getMemberUserIDList (shelfID, hold) {
+  const sql = 'select User from shelf where ShelfID = ?'
+  const parameters = [shelfID]
+  // 根据条件插入数据
+  connection.query(sql, parameters, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      if (typeof hold === 'function') hold(result)
+    }
+  })
+}
+
+function getMemberInfoList (userIDList, hold) {
+  let allUserID = ''
+  for (let index = 0; index < userIDList.length; index++) {
+    allUserID += index < userIDList.length - 1
+      ? 'WxOpenID = "' + userIDList[index].User + '" or '
+      : 'WxOpenID = "' + userIDList[index].User + '"'
+  }
+  const sql = 'select * from user where ' + allUserID
+  // 根据条件插入数据
+  connection.query(sql, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      if (typeof hold === 'function') hold(result)
+    }
+  })
+}
+
+
+/* 数据库策略模式组件 */
+
 function getShelfID (openid, hold) {
-  const sql = 'select ShelfID  from shelf where user = ? and IsOwner = 1'
+  const sql = 'select ShelfID from shelf where user = ? and IsOwner = 1'
   const parameters = [openid]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
@@ -233,6 +281,39 @@ function getShelfID (openid, hold) {
         shelfID = result[0][item]
       }
       if (typeof hold === 'function') hold(shelfID)
+    }
+  })
+}
+
+function getUserInfo (token, hold) {
+  const sql = 'select * from user where Token = ?'
+  const parameters = [token]
+  // 根据条件插入数据
+  connection.query(sql, parameters, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      let openid
+      for (const item in result[0]) {
+        openid = result[0][item]
+      }
+      if (typeof hold === 'function') hold(openid)
+    }
+  })
+}
+
+function createShelf (param = {
+  id: String,
+  time: String,
+  userID: String,
+  isOwner: Boolean }, callback
+) {
+  const sql = 'INSERT INTO shelf(ShelfID, CreateTime, User, IsOwner) VALUES(?,?,?,?)'
+  const parameters = [param.id, param.time, param.userID, param.isOwner]
+  // 根据条件插入数据
+  connection.query(sql, parameters, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      if (typeof callback === 'function') callback()
     }
   })
 }
