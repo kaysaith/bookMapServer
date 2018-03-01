@@ -256,8 +256,8 @@ function getMemberInfoList (userIDList, hold) {
   let allUserID = ''
   for (let index = 0; index < userIDList.length; index++) {
     allUserID += index < userIDList.length - 1
-      ? 'OpenID = "' + userIDList[index].User + '" or '
-      : 'OpenID = "' + userIDList[index].User + '"'
+      ? 'OpenID = "' + userIDList[index].OpenID + '" or '
+      : 'OpenID = "' + userIDList[index].OpenID + '"'
   }
   const sql = 'select * from user where ' + allUserID
   // 根据条件插入数据
@@ -273,7 +273,7 @@ function getMemberInfoList (userIDList, hold) {
 /* 数据库策略模式组件 */
 
 function getShelfID (openid, hold) {
-  const sql = 'select ShelfID from shelf where user = ? and IsOwner = 1'
+  const sql = 'select ShelfID from shelf where OpenID = ? and IsOwner = 1'
   const parameters = [openid]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
