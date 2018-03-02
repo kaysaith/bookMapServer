@@ -1,4 +1,3 @@
-
 const express = require('express')
 const app = express()
 
@@ -7,13 +6,14 @@ const nodeRequest = require('request')
 const utils = require('../common/utils')
 const mysql = require('../common/mysql')
 
+const path = require('path')
 
 const https = require('https')
 const fileStream = require('fs')
 
 const options = {
-  key: fileStream.readFileSync('../certs/naonaolaKey.key'),
-  cert: fileStream.readFileSync('../certs/naonaolaCrt.crt')
+  key: fileStream.readFileSync('./certs/naonaolaKey.key'),
+  cert: fileStream.readFileSync('./certs/naonaolaCrt.crt')
 }
 
 https.createServer(options, app).listen(8888, function () {
@@ -174,15 +174,6 @@ app.get('/searchBook', function (request, response) {
     response.end(JSON.stringify(result))
   })
 })
-
-// 指定接口监听
-
-// const server = app.listen(8888, function () {
-//   const host = server.address().address
-//   const port = server.address().port
-//   console.log('应用实例，访问地址为 http://%s:%s', host, port)
-// })
-
 
 
 
