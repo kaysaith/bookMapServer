@@ -12,8 +12,8 @@ const https = require('https')
 const fileStream = require('fs')
 
 const options = {
-  key: fileStream.readFileSync('../certs/naonaolaKey.pem'),
-  cert: fileStream.readFileSync('../certs/naonaolaCrt.pem')
+  key: fileStream.readFileSync('../certs/naonaolaKey.key'),
+  cert: fileStream.readFileSync('../certs/naonaolaCrt.crt')
 }
 
 https.createServer(options, app).listen(8888, function () {
