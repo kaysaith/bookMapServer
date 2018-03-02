@@ -157,6 +157,12 @@ app.get('/deleteMember', function (request, response) {
   })
 })
 
+app.get('/searchBook', function (request, response) {
+  mysql.searchBook(request.query.keyword, request.query.shelfID, (result) => {
+    response.end(JSON.stringify(result))
+  })
+})
+
 // 指定接口监听
 
 const server = app.listen(8888, function () {
