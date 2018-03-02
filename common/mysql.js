@@ -176,3 +176,30 @@ exports.createShelf = function (param = {
     }
   })
 }
+
+exports.searchBook = function (keyword, shelfID, hold) {
+  let splitKeywords = keyword.split(' ')
+  let nameSql = ''
+  let tagSql = ''
+
+  for (let index = 0; index < splitKeywords.length; index++) {
+    if (splitKeywords[index] != '') {
+      if (nameSql == '') {
+        nameSql += 'Name LIKE "%' + splitKeywords[index] + '%"'
+        tagSql += 'Tag LIKE "%' + splitKeywords[index] + '%"'
+      } else {
+        nameSql += ' AND Name LIKE "%' + splitKeywords[index] + '%"'
+        tagSql += ' AND Tag LIKE "%' + splitKeywords[index] + '%"'
+      }
+    }
+  }
+  let sql = 'SELECT * FROM book WHERE ' + nameSql + ' AND ShelfID = "' + shelfID + '" OR ' + tagSql + ' AND ShelfID = "' + shelfID + '"'
+
+  // 根据条件插入数据
+  connection.query(sql, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      if (typeof hold === 'function') hold(result)
+    }
+  })
+}
