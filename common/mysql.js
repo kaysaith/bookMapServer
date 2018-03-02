@@ -203,3 +203,29 @@ exports.searchBook = function (keyword, shelfID, hold) {
     }
   })
 }
+
+exports.deleteBook = function (bookID, callback) {
+  // 从家庭列表删除指定的 `OpenID` 以及 判断不是创建者
+  const sql = 'delete from book where ID = ?'
+  const parameters = [bookID]
+  // 根据条件插入数据
+  connection.query(sql, parameters, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      if (typeof callback === 'function') callback()
+    }
+  })
+}
+
+exports.deleteMember = function (openid, callback) {
+  // 从家庭列表删除指定的 `OpenID` 以及 判断不是创建者
+  const sql = 'delete from shelf where OpenID = ? and IsOwner = 0'
+  const parameters = [openid]
+  // 根据条件插入数据
+  connection.query(sql, parameters, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      if (typeof callback === 'function') callback()
+    }
+  })
+}

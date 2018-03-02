@@ -13,7 +13,6 @@ exports.initUserToken =  function(openid) {
   return openid + uuidv4()
 }
 
-
 const client = qiniu.create({
   accessKey: 'Xcb7vk6Sh9BGN1dXQNIKuPTHJD_2lV-IFBjkkXp6',
   secretKey: 'yUv1DpLWmBanuuY-mgA6Iod0uwiFy4mr-J9aMFIV',

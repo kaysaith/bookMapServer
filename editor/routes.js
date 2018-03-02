@@ -136,6 +136,12 @@ app.get('/updateTargetBookInfo', function (request, response) {
   })
 })
 
+app.get('/deleteBook', function (request, response) {
+  mysql.deleteBook(request.query.bookID, () => {
+    response.end()
+  })
+})
+
 /*—————— 家庭成员列表管理 ——————*/
 
 app.get('/addMember', function (request, response) {
@@ -159,13 +165,8 @@ app.get('/getMemberList', function (request, response) {
 })
 
 app.get('/deleteMember', function (request, response) {
-  // 从家庭列表删除指定的 `OpenID` 以及 判断不是创建者
-  const sql = 'delete from shelf where OpenID = ? and IsOwner = 0'
-  const parameters = [request.query.openid]
-  // 根据条件插入数据
-  connection.query(sql, parameters, function (err, result) {
-    if (err) console.log('[SELECT ERROR] - ', err.message)
-    if (result) response.end()
+  mysql.deleteMember(request.query.openid, () => {
+    response.end()
   })
 })
 
