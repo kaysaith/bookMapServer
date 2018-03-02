@@ -1,10 +1,26 @@
+
 const express = require('express')
 const app = express()
+
 const multiparty = require('connect-multiparty')
 const nodeRequest = require('request')
 const utils = require('../common/utils')
 const mysql = require('../common/mysql')
 
+
+const https = require('https')
+const fileStream = require('fs')
+
+const options = {
+  key: fileStream.readFileSync('../certs/naonaolaKey.pem'),
+  cert: fileStream.readFileSync('../certs/naonaolaCrt.pem')
+}
+
+https.createServer(options, app).listen(8888, function () {
+  console.log('Https server listening on port ' + 8888)
+})
+
+/* —————— 业务接口 —————— */
 
 app.post('/upload', multiparty(), function (req, res) {
   const filepath = req.files.file.path
@@ -12,7 +28,6 @@ app.post('/upload', multiparty(), function (req, res) {
     res.end(imageUrl)
   })
 })
-
 
 app.get('/createBook', function (request, response) {
   const time = new Date()
@@ -51,7 +66,6 @@ app.get('/modifyBookInfo', function (request, response) {
 
 const appSecret = 'a734564d0851aec3116df949f6bc26ff'
 const appID = 'wx7988f8690d25aa8b'
-
 
 app.get('/getTokenAndUserInfo', function (request, res) {
   const weChatHeader = 'https://api.weixin.qq.com/sns/jscode2session?'
@@ -122,7 +136,6 @@ app.get('/updateTargetBookInfo', function (request, response) {
   })
 })
 
-
 /*—————— 家庭成员列表管理 ——————*/
 
 app.get('/addMember', function (request, response) {
@@ -145,7 +158,6 @@ app.get('/getMemberList', function (request, response) {
   )
 })
 
-
 app.get('/deleteMember', function (request, response) {
   // 从家庭列表删除指定的 `OpenID` 以及 判断不是创建者
   const sql = 'delete from shelf where OpenID = ? and IsOwner = 0'
@@ -165,11 +177,11 @@ app.get('/searchBook', function (request, response) {
 
 // 指定接口监听
 
-const server = app.listen(8888, function () {
-  const host = server.address().address
-  const port = server.address().port
-  console.log('应用实例，访问地址为 http://%s:%s', host, port)
-})
+// const server = app.listen(8888, function () {
+//   const host = server.address().address
+//   const port = server.address().port
+//   console.log('应用实例，访问地址为 http://%s:%s', host, port)
+// })
 
 
 
