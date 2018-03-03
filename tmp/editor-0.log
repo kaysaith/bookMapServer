@@ -1,1 +1,25 @@
-Https server listening on port 8888
+[ RowDataPacket {
+    OpenID: 'oXGvq4kid5z2hS3_xZU1lzjK_k2Q',
+    ShelfID: 'oXGvq4kid5z2hS3_xZU1lzjK_k2Q',
+    Nick: '瑞塔',
+    booksCount: 2 } ]
+[ RowDataPacket {
+    OpenID: 'oXGvq4kid5z2hS3_xZU1lzjK_k2Q',
+    ShelfID: 'oXGvq4kid5z2hS3_xZU1lzjK_k2Q',
+    Nick: '瑞塔',
+    booksCount: 2 } ]
+[ RowDataPacket {
+    OpenID: 'oXGvq4kid5z2hS3_xZU1lzjK_k2Q',
+    ShelfID: 'oXGvq4kid5z2hS3_xZU1lzjK_k2Q',
+    Nick: '瑞塔',
+    booksCount: 2 } ]
+[ RowDataPacket {
+    OpenID: 'oXGvq4kid5z2hS3_xZU1lzjK_k2Q',
+    ShelfID: 'oXGvq4kid5z2hS3_xZU1lzjK_k2Q',
+    Nick: '瑞塔',
+    booksCount: 2 } ]
+[ RowDataPacket {
+    OpenID: 'oXGvq4kid5z2hS3_xZU1lzjK_k2Q',
+    ShelfID: 'oXGvq4kid5z2hS3_xZU1lzjK_k2Q',
+    Nick: '瑞塔',
+    booksCount: 2 } ]
