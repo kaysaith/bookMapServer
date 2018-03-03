@@ -45,7 +45,7 @@ exports.setBooks = function (params = {
 
 /*—————— 注册 ——————*/
 exports.registerOrLogin = function (openid, callback) {
-  const sql = 'select Nick from user where OpenID = ?'
+  const sql = 'SELECT Nick FROM user WHERE OpenID = ?'
   const parameters = [openid]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
@@ -76,7 +76,7 @@ exports.registerUser = function (params = {
 }
 
 exports.getBooksFromDatabase = function (shelfID, startIndex, hold) {
-  const sql = 'select * from book where ShelfID = ? order by ID desc limit ?,10'
+  const sql = 'SELECT * FROM book WHERE ShelfID = ? ORDER BY ID DESC LIMIT ?,10'
   const parameters = [shelfID, parseInt(startIndex)]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
@@ -88,7 +88,7 @@ exports.getBooksFromDatabase = function (shelfID, startIndex, hold) {
 }
 
 exports.getBookInfoFromDatabase = function (bookID, hold) {
-  const sql = 'select * from book where ID = ?'
+  const sql = 'SELECT * FROM book WHERE ID = ?'
   const parameters = [bookID]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
@@ -100,7 +100,7 @@ exports.getBookInfoFromDatabase = function (bookID, hold) {
 }
 
 exports.getMemberUserIDList= function (shelfID, hold) {
-  const sql = 'select OpenID from shelf where ShelfID = ?'
+  const sql = 'SELECT OpenID FROM shelf WHERE ShelfID = ?'
   const parameters = [shelfID]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
@@ -118,7 +118,7 @@ exports.getMemberInfoList = function (userIDList, hold) {
       ? 'OpenID = "' + userIDList[index].OpenID + '" or '
       : 'OpenID = "' + userIDList[index].OpenID + '"'
   }
-  const sql = 'select * from user where ' + allUserID
+  const sql = 'SELECT * FROM user WHERE ' + allUserID
   // 根据条件插入数据
   connection.query(sql, function (err, result) {
     if (err) console.log('[SELECT ERROR] - ', err.message)
@@ -129,7 +129,7 @@ exports.getMemberInfoList = function (userIDList, hold) {
 }
 
 exports.getShelfID = function (openid, hold) {
-  const sql = 'select ShelfID from shelf where OpenID = ? and IsOwner = 1'
+  const sql = 'SELECT ShelfID FROM shelf WHERE OpenID = ? AND IsOwner = 1'
   const parameters = [openid]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
@@ -145,7 +145,7 @@ exports.getShelfID = function (openid, hold) {
 }
 
 exports.getUserInfo = function (token, hold) {
-  const sql = 'select * from user where Token = ?'
+  const sql = 'SELECT * FROM user WHERE Token = ?'
   const parameters = [token]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
@@ -183,7 +183,7 @@ exports.searchBook = function (keyword, shelfID, hold) {
   let tagSql = ''
 
   for (let index = 0; index < splitKeywords.length; index++) {
-    if (splitKeywords[index] != '') {
+    if (splitKeywords[index] !== '') {
       if (nameSql == '') {
         nameSql += 'Name LIKE "%' + splitKeywords[index] + '%"'
         tagSql += 'Tag LIKE "%' + splitKeywords[index] + '%"'
@@ -206,7 +206,7 @@ exports.searchBook = function (keyword, shelfID, hold) {
 
 exports.deleteBook = function (bookID, callback) {
   // 从家庭列表删除指定的 `OpenID` 以及 判断不是创建者
-  const sql = 'delete from book where ID = ?'
+  const sql = 'DELETE FROM book WHERE ID = ?'
   const parameters = [bookID]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
@@ -219,13 +219,62 @@ exports.deleteBook = function (bookID, callback) {
 
 exports.deleteMember = function (openid, callback) {
   // 从家庭列表删除指定的 `OpenID` 以及 判断不是创建者
-  const sql = 'delete from shelf where OpenID = ? and IsOwner = 0'
+  const sql = 'DELETE FROM shelf WHERE OpenID = ? AND IsOwner = 0'
   const parameters = [openid]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
     if (err) console.log('[SELECT ERROR] - ', err.message)
     if (result) {
       if (typeof callback === 'function') callback()
+    }
+  })
+}
+
+// 我被分享的 `Shelf List`
+
+exports.getShelfList = function (openid, hold) {
+  // 根据用户的 `openid` 拉取到与此 `openid` 关联的 `ShelfID` 和 `User Nick`
+  const sql =
+    'SELECT data.OpenID, data.ShelfID, user.Nick ' +
+    'FROM (' +
+    'SELECT * FROM shelf ' +
+    'WHERE ShelfID = (SELECT ShelfID FROM shelf WHERE OpenID = ? AND IsOwner = 0) AND IsOwner = 1) as data ' +
+    'LEFT JOIN user ON data.OpenID = user.OpenID;'
+  const parameters = [openid]
+  // 根据条件插入数据
+  connection.query(sql, parameters, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+
+      function prepareBooksInfo (callback) {
+        result.forEach((it) => {
+          getShelfBooksCount(it.ShelfID, (booksCount) => {
+            // 这个异步方法在循环里面添加新字段数据
+            it.booksCount = booksCount
+            if (it.ShelfID === result[result.length - 1].ShelfID) {
+              // 通过数量判断循环完结并执行回调
+              if (typeof  callback === 'function') callback(result)
+            }
+          })
+        })
+      }
+
+      prepareBooksInfo((bookInfo) => {
+        if (typeof hold === 'function') hold(bookInfo)
+      })
+
+    }
+  })
+}
+
+function getShelfBooksCount(shelfID, hold) {
+  const sql = 'SELECT * FROM shelf WHERE ShelfID = ?'
+  const parameters = [shelfID]
+  // 根据条件插入数据
+  connection.query(sql, parameters, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      if (typeof hold === 'function') hold(result.length)
     }
   })
 }
