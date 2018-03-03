@@ -182,6 +182,12 @@ app.get('/getShelfList', function (request, response) {
   })
 })
 
+app.get('/getShelfBooksCount', function (request, response) {
+  mysql.getShelfBooksCount(request.query.shelfID, (result) => {
+    response.end(JSON.stringify(result))
+  })
+})
+
 
 
 
