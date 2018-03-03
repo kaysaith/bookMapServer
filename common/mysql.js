@@ -279,7 +279,6 @@ function getShelfBooksCount(shelfID, hold) {
     if (err) console.log('[SELECT ERROR] - ', err.message)
     if (result) {
       if (typeof hold === 'function') hold(result.length)
-      console.log(result)
     }
   })
 }
