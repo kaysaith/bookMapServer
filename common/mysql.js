@@ -248,7 +248,7 @@ exports.getShelfList = function (openid, hold) {
 
       function prepareBooksInfo (callback) {
         result.forEach((it) => {
-          getShelfBooksCount(it.ShelfID, (booksCount) => {
+          getBooksCount(it.ShelfID, (booksCount) => {
             // 这个异步方法在循环里面添加新字段数据
             it.booksCount = booksCount
             if (it.ShelfID === result[result.length - 1].ShelfID) {
@@ -268,10 +268,10 @@ exports.getShelfList = function (openid, hold) {
 }
 
 exports.getShelfBooksCount = function (shelfID, hold) {
-  getShelfBooksCount(shelfID, hold)
+  getBooksCount(shelfID, hold)
 }
 
-function getShelfBooksCount(shelfID, hold) {
+function getBooksCount(shelfID, hold) {
   const sql = 'SELECT * FROM book WHERE ShelfID = ?'
   const parameters = [shelfID]
   // 根据条件插入数据
