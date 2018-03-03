@@ -267,14 +267,19 @@ exports.getShelfList = function (openid, hold) {
   })
 }
 
+exports.getShelfBooksCount = function (shelfID, hold) {
+  getShelfBooksCount(shelfID, hold)
+}
+
 function getShelfBooksCount(shelfID, hold) {
-  const sql = 'SELECT * FROM shelf WHERE ShelfID = ?'
+  const sql = 'SELECT * FROM book WHERE ShelfID = ?'
   const parameters = [shelfID]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
     if (err) console.log('[SELECT ERROR] - ', err.message)
     if (result) {
       if (typeof hold === 'function') hold(result.length)
+      console.log(result)
     }
   })
 }
