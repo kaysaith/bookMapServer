@@ -278,14 +278,15 @@ exports.getShelfList = function (openid, hold) {
     'SELECT data.OpenID, data.ShelfID, user.Nick ' +
     'FROM (' +
     'SELECT * FROM shelf ' +
-    'WHERE ShelfID IN (SELECT ShelfID FROM shelf WHERE OpenID = ? AND IsOwner = 0) AND IsOwner = 1) as data ' +
+    'WHERE ShelfID = (SELECT ShelfID FROM shelf WHERE OpenID = ? AND IsOwner = 0) AND IsOwner = 1) as data ' +
     'LEFT JOIN user ON data.OpenID = user.OpenID;'
   const parameters = [openid]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
     if (err) console.log('[SELECT ERROR] - ', err.message)
     if (result) {
-
+      console.log(result)
+      console.log("__________")
       function prepareBooksInfo (callback) {
         result.forEach((it) => {
           getBooksCount(it.ShelfID, (booksCount) => {

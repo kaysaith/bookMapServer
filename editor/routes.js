@@ -183,6 +183,7 @@ app.get('/searchBook', function (request, response) {
 
 app.get('/getShelfList', function (request, response) {
   mysql.getShelfList(request.query.openid, (result) => {
+    console.log(result)
     response.end(JSON.stringify(result))
   })
 })
