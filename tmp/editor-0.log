@@ -1,1 +1,20 @@
 Https server listening on port 8888
+Https server listening on port 8888
+Https server listening on port 8080
+Https server listening on port 8080
+Https server listening on port 8888
+Https server listening on port 8888
+[object Object]7.7821507424381835
+Https server listening on port 8888
+[object Object]4.475829315121862+++++
+Https server listening on port 8888
+9+++++
+Https server listening on port 8888
+[ RowDataPacket { UserID: 100001 },
+  RowDataPacket { UserID: 100002 },
+  RowDataPacket { UserID: 0 },
+  RowDataPacket { UserID: 0 } ]
+9+++++
+Https server listening on port 8888
+RowDataPacket { UserID: 100002 }
+100009+++++
