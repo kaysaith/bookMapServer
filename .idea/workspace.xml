@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e1a1ae0-c437-41f5-ba1a-7ead05208cd3" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/common/mysql.js" afterPath="$PROJECT_DIR$/common/mysql.js" />
-      <change beforePath="$PROJECT_DIR$/common/utils.js" afterPath="$PROJECT_DIR$/common/utils.js" />
-      <change beforePath="$PROJECT_DIR$/editor/routes.js" afterPath="$PROJECT_DIR$/editor/routes.js" />
+      <change beforePath="$PROJECT_DIR$/tmp/editor-0.log" afterPath="$PROJECT_DIR$/tmp/editor-0.log" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,8 +21,8 @@
       <file leaf-file-name="mysql.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common/mysql.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="770">
-              <caret line="207" column="25" lean-forward="false" selection-start-line="207" selection-start-column="8" selection-end-line="207" selection-end-column="25" />
+            <state relative-caret-position="569">
+              <caret line="84" column="17" lean-forward="false" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="17" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -33,8 +33,18 @@
       <file leaf-file-name="routes.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/editor/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="725">
-              <caret line="155" column="21" lean-forward="true" selection-start-line="155" selection-start-column="21" selection-end-line="155" selection-end-column="21" />
+            <state relative-caret-position="299">
+              <caret line="84" column="9" lean-forward="false" selection-start-line="84" selection-start-column="9" selection-end-line="84" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="editor-0.log" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tmp/editor-0.log">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -64,9 +74,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>WxOpenID</find>
-      <find>User</find>
-      <find>shelf</find>
       <find>from shelf</find>
       <find>user</find>
       <find>from Shelf</find>
@@ -94,6 +101,9 @@
       <find>getShelfID</find>
       <find>addMember</find>
       <find>createShelf</find>
+      <find>console</find>
+      <find>console.log(</find>
+      <find>init</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -243,12 +253,12 @@
       <workItem from="1519629230354" duration="150000" />
       <workItem from="1519704101611" duration="2821000" />
       <workItem from="1519716512378" duration="79243000" />
-      <workItem from="1520016673803" duration="11782000" />
+      <workItem from="1520016673803" duration="14129000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="105738000" />
+    <option name="totallyTimeSpent" value="108085000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1718" height="1440" extended-state="0" />
@@ -364,10 +374,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tmp/editor-0.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/common/mysql.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="770">
-          <caret line="207" column="25" lean-forward="false" selection-start-line="207" selection-start-column="8" selection-end-line="207" selection-end-column="25" />
+        <state relative-caret-position="569">
+          <caret line="84" column="17" lean-forward="false" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="17" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -376,8 +394,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/editor/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="725">
-          <caret line="155" column="21" lean-forward="true" selection-start-line="155" selection-start-column="21" selection-end-line="155" selection-end-column="21" />
+        <state relative-caret-position="299">
+          <caret line="84" column="9" lean-forward="false" selection-start-line="84" selection-start-column="9" selection-end-line="84" selection-end-column="9" />
           <folding />
         </state>
       </provider>

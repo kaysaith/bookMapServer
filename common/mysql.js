@@ -83,7 +83,7 @@ exports.initUserID = function (hold) {
   connection.query(sql, function (err, result) {
     if (err) console.log('[SELECT ERROR] - ', err.message)
     if (result) {
-      const newUserID = result[result.length - 1] + Math.random() * 10
+      const newUserID = result[result.length - 1].UserID + Math.floor(Math.random() * 10)
       if (typeof hold === 'function') hold(newUserID)
     }
   })
