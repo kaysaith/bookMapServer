@@ -278,7 +278,7 @@ exports.getShelfList = function (openid, hold) {
     'SELECT data.OpenID, data.ShelfID, user.Nick ' +
     'FROM (' +
     'SELECT * FROM shelf ' +
-    'WHERE ShelfID = (SELECT ShelfID FROM shelf WHERE OpenID = ? AND IsOwner = 0) AND IsOwner = 1) as data ' +
+    'WHERE ShelfID IN (SELECT ShelfID FROM shelf WHERE OpenID = ? AND IsOwner = 0) AND IsOwner = 1) as data ' +
     'LEFT JOIN user ON data.OpenID = user.OpenID;'
   const parameters = [openid]
   // 根据条件插入数据
