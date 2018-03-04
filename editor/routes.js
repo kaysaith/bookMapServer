@@ -6,8 +6,6 @@ const nodeRequest = require('request')
 const utils = require('../common/utils')
 const mysql = require('../common/mysql')
 
-const path = require('path')
-
 const https = require('https')
 const fileStream = require('fs')
 
@@ -82,41 +80,46 @@ app.get('/getTokenAndUserInfo', function (request, res) {
           userInfo[item] = JSON.parse(body)[item]
         }
 
-        const uniqueToken = utils.initUserToken(userInfo.openid)
-
         const account = {
           openid: userInfo.openid,
-          token: uniqueToken,
         }
 
         mysql.registerOrLogin(userInfo.openid, (result) => {
           // 如果结果的长度为 0 意味着此 `openid` 没有注册过,启动注册
           if (result.length === 0) {
+            const uniqueToken = utils.initUserToken(userInfo.openid)
             const time = new Date()
-            mysql.registerUser({
-              openid: userInfo.openid,
-              nick: request.query.nickName,
-              avatar: request.query.avatarUrl,
-              token: uniqueToken,
-              time: time,
-              callback: () => {
-                // 注册成功后直接帮助创建唯一的个人书柜
-                mysql.createShelf({
-                  id: userInfo.openid,
-                  time: time,
-                  userID: userInfo.openid,
-                  isOwner: true
-                }, () => {
-                  account.shelfID = shelfID
-                  res.end(JSON.stringify(account))
-                })
-              }
+            mysql.initUserID((userID) => {
+              mysql.registerUser({
+                openid: userInfo.openid,
+                nick: request.query.nickName,
+                avatar: request.query.avatarUrl,
+                token: uniqueToken,
+                userID: userID,
+                time: time,
+                callback: () => {
+                  // 注册成功后直接帮助创建唯一的个人书柜
+                  mysql.createShelf({
+                    id: userInfo.openid,
+                    time: time,
+                    userID: userInfo.openid,
+                    isOwner: true
+                  }, () => {
+                    // 生成注册用户的数据并加载到返回的对象上
+                    account.shelfID = userInfo.openid
+                    account.userID = userID
+                    account.token = uniqueToken
+
+                    res.end(JSON.stringify(account))
+                  })
+                }
+              })
             })
           } else {
             // 如果是登录用户查询这个用户的 `ShelfID` 并返回给客户端
-            mysql.getShelfID(userInfo.openid, (shelfID) => {
-              account.shelfID = shelfID
-              res.end(JSON.stringify(account))
+            mysql.getLoginInfo(userInfo.openid, (userInfo) => {
+              const loginInfo = utils.loginInfoModel(userInfo[0])
+              res.end(JSON.stringify(loginInfo))
             })
           }
         })
@@ -145,14 +148,16 @@ app.get('/deleteBook', function (request, response) {
 /*—————— 家庭成员列表管理 ——————*/
 
 app.get('/addMember', function (request, response) {
-  const time = new Date()
-  mysql.createShelf({
-    id: request.query.shelfID,
-    time: time,
-    userID: request.query.memberID,
-    isOwner: false
-  }, () => {
-    response.end('success')
+  mysql.getOpenIdByUserID(request.query.userID, (openID) => {
+    const time = new Date()
+    mysql.createShelf({
+      id: request.query.shelfID,
+      time: time,
+      userID: openID,
+      isOwner: false
+    }, () => {
+      response.end('success')
+    })
   })
 })
 
