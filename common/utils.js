@@ -29,3 +29,14 @@ exports.uploadImageToQiNiu = function (imagePath, callback) {
   })
 }
 
+exports.loginInfoModel = function (data) {
+  return {
+    userID: data.UserID,
+    openID: data.OpenID,
+    name: data.Nick,
+    avatar: data.Avatar,
+    token: data.Token,
+    shelfID: data.ShelfID
+  }
+}
+

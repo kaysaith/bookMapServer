@@ -44,6 +44,7 @@ exports.setBooks = function (params = {
 }
 
 /*—————— 注册 ——————*/
+
 exports.registerOrLogin = function (openid, callback) {
   const sql = 'SELECT Nick FROM user WHERE OpenID = ?'
   const parameters = [openid]
@@ -62,15 +63,28 @@ exports.registerUser = function (params = {
   avatar: String,
   token: String,
   time: String,
+  userID: UserID,
   callback: Function
 }) {
-  const sql = 'INSERT INTO user(OpenID, Nick, Avatar, Token, RegisterTime) VALUES(?,?,?,?,?)'
-  const parameters = [params.openid, params.nick, params.avatar, params.token, params.time]
+  const sql = 'INSERT INTO user(UserID, OpenID, Nick, Avatar, Token, RegisterTime) VALUES(?,?,?,?,?,?)'
+  const parameters = [params.userID, params.openid, params.nick, params.avatar, params.token, params.time]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
     if (err) console.log('[SELECT ERROR] - ', err.message)
     if (result) {
       if (typeof params.callback === 'function') params.callback()
+    }
+  })
+}
+
+exports.initUserID = function (hold) {
+  const sql = 'SELECT UserID FROM user'
+  // 根据条件插入数据
+  connection.query(sql, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      const newUserID = result[result.length - 1] + Math.random() * 10
+      if (typeof hold === 'function') hold(newUserID)
     }
   })
 }
@@ -144,6 +158,20 @@ exports.getShelfID = function (openid, hold) {
   })
 }
 
+exports.getLoginInfo = function (openid, hold) {
+  const sql =
+    'SELECT data.*, shelf.ShelfID FROM (SELECT * from user where OpenID = ?) ' +
+    'AS data LEFT JOIN shelf ON data.OpenID = shelf.OpenID AND shelf.IsOwner = 1'
+  const parameters = [openid]
+  // 根据条件插入数据
+  connection.query(sql, parameters, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      if (typeof hold === 'function') hold(result)
+    }
+  })
+}
+
 exports.getUserInfo = function (token, hold) {
   const sql = 'SELECT * FROM user WHERE Token = ?'
   const parameters = [token]
@@ -173,6 +201,18 @@ exports.createShelf = function (param = {
     if (err) console.log('[SELECT ERROR] - ', err.message)
     if (result) {
       if (typeof callback === 'function') callback()
+    }
+  })
+}
+
+exports.getOpenIdByUserID = function (userID, hold) {
+  const sql = 'SELECT OpenID FROM user WHERE UserID = ?'
+  const parameters = [userID]
+  // 根据条件插入数据
+  connection.query(sql, parameters, function (err, result) {
+    if (err) console.log('[SELECT ERROR] - ', err.message)
+    if (result) {
+      if (typeof hold === 'function') hold(result[0].OpenID)
     }
   })
 }
