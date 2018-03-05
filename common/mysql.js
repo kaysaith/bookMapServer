@@ -275,11 +275,7 @@ exports.deleteMember = function (openid, callback) {
 exports.getShelfList = function (openid, hold) {
   // 根据用户的 `openid` 拉取到与此 `openid` 关联的 `ShelfID` 和 `User Nick`
   const sql =
-    'SELECT data.OpenID, data.ShelfID, user.Nick ' +
-    'FROM (' +
-    'SELECT * FROM shelf ' +
-    'WHERE ShelfID = (SELECT ShelfID FROM shelf WHERE OpenID = ? AND IsOwner = 0) AND IsOwner = 1) as data ' +
-    'LEFT JOIN user ON data.OpenID = user.OpenID;'
+    'SELECT data.OpenID, data.ShelfID, user.Nick FROM (SELECT * FROM shelf WHERE ShelfID = (SELECT ShelfID FROM shelf WHERE OpenID = ? AND IsOwner = 0) AND IsOwner = 1) as data LEFT JOIN user ON data.OpenID = user.OpenID'
   const parameters = [openid]
   // 根据条件插入数据
   connection.query(sql, parameters, function (err, result) {
