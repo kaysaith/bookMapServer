@@ -9,7 +9,7 @@ const mysql = require('../common/mysql')
 const https = require('https')
 const fileStream = require('fs')
 
-const options = {
+options = {
   key: fileStream.readFileSync('./certs/naonaolaKey.key'),
   cert: fileStream.readFileSync('./certs/naonaolaCrt.crt')
 }
